@@ -1,0 +1,15 @@
+.timetable{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+tr{
+    display: flex;
+    align-items: center;
+}
+
+td{
+    width: 250px;
+    text-align: center;
+}
