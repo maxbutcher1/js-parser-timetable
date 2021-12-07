@@ -1,6 +1,8 @@
 .timetable{
     display: flex;
     flex-direction: column;
+    text-align: center;
+    
     
 }
 
@@ -12,4 +14,8 @@ tr{
 td{
     width: 250px;
     text-align: center;
+}
+
+.groups_item{
+    margin-top: 25px;
 }
