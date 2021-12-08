@@ -36,6 +36,11 @@ let currDay = ''
 mo.addEventListener('click', () => {
     groups = []
     allItems = []
+    subAndGroupArr=[]
+    subAndGroupObj={
+        group:'',
+        lessonsList:[]
+    }
     timetable.innerHTML = ''
     fetchData(monday)
     currDay = 'mo'
@@ -181,6 +186,7 @@ const getMonday = () => {
     counter = 43
     c = counter
     for (let i = 8; i < 12; i++) {
+        let arrLessons =[] 
         const groupsContainer = document.createElement('div')  // створюємо контейнер для груп
         groupsContainer.classList.add('groups_item') // додаємо клас
         groupsContainer.innerHTML = `${groups[i]}` //в середину контейнера вставляємо групу
@@ -191,15 +197,18 @@ const getMonday = () => {
             const lessonsContainer = document.createElement('div')
             lessonsContainer.innerHTML = `${allItems[c]}`
           //  timetable.append(lessonsContainer)
-
+          arrLessons.push(allItems[c])
             c += 4
         }
+        subAndGroupObj = {group:groups[i],lessonsList:arrLessons} // в об'єкт додаємо данні
+        subAndGroupArr.push(subAndGroupObj)
 
     }
 
     counter = 60
     c = counter
     for (let i = 12; i < 16; i++) {
+        let arrLessons =[] 
         const groupsContainer = document.createElement('div')  // створюємо контейнер для груп
         groupsContainer.classList.add('groups_item') // додаємо клас
         groupsContainer.innerHTML = `${groups[i]}` //в середину контейнера вставляємо групу
@@ -210,15 +219,17 @@ const getMonday = () => {
             const lessonsContainer = document.createElement('div')
             lessonsContainer.innerHTML = `${allItems[c]}`
            // timetable.append(lessonsContainer)
-
+           arrLessons.push(allItems[c])
             c += 4
         }
-
+        subAndGroupObj = {group:groups[i],lessonsList:arrLessons} // в об'єкт додаємо данні
+        subAndGroupArr.push(subAndGroupObj)
     }
 
     counter = 85
     c = counter
     for (let i = 16; i < 19; i++) {
+        let arrLessons =[] 
         const groupsContainer = document.createElement('div')  // створюємо контейнер для груп
         groupsContainer.classList.add('groups_item') // додаємо клас
         groupsContainer.innerHTML = `${groups[i]}` //в середину контейнера вставляємо групу
@@ -229,15 +240,17 @@ const getMonday = () => {
             const lessonsContainer = document.createElement('div')
             lessonsContainer.innerHTML = `${allItems[c]}`
            // timetable.append(lessonsContainer)
-
+           arrLessons.push(allItems[c])
             c += 3
         }
-
+        subAndGroupObj = {group:groups[i],lessonsList:arrLessons} // в об'єкт додаємо данні
+        subAndGroupArr.push(subAndGroupObj)
     }
 
     counter = 98
     c = counter
     for (let i = 19; i < 22; i++) {
+        let arrLessons =[]
         const groupsContainer = document.createElement('div')  // створюємо контейнер для груп
         groupsContainer.classList.add('groups_item') // додаємо клас
         groupsContainer.innerHTML = `${groups[i]}` //в середину контейнера вставляємо групу
@@ -248,15 +261,17 @@ const getMonday = () => {
             const lessonsContainer = document.createElement('div')
             lessonsContainer.innerHTML = `${allItems[c]}`
           //  timetable.append(lessonsContainer)
-
+          arrLessons.push(allItems[c])
             c += 3
         }
-
+        subAndGroupObj = {group:groups[i],lessonsList:arrLessons} // в об'єкт додаємо данні
+        subAndGroupArr.push(subAndGroupObj)
     }
 
     counter = 111
     c = counter
     for (let i = 22; i < 25; i++) {
+        let arrLessons =[]
         const groupsContainer = document.createElement('div')  // створюємо контейнер для груп
         groupsContainer.classList.add('groups_item') // додаємо клас
         groupsContainer.innerHTML = `${groups[i]}` //в середину контейнера вставляємо групу
@@ -268,14 +283,17 @@ const getMonday = () => {
             const lessonsContainer = document.createElement('div')
             lessonsContainer.innerHTML = `${allItems[c]} `
           //  timetable.append(lessonsContainer)
+          arrLessons.push(allItems[c])
             c += 3
         }
-
+        subAndGroupObj = {group:groups[i],lessonsList:arrLessons} // в об'єкт додаємо данні
+        subAndGroupArr.push(subAndGroupObj)
     }
 
     counter = 124
     c = counter
     for (let i = 25; i < 28; i++) {
+        let arrLessons =[]
         const groupsContainer = document.createElement('div')  // створюємо контейнер для груп
         groupsContainer.classList.add('groups_item') // додаємо клас
         groupsContainer.innerHTML = `${groups[i]}` //в середину контейнера вставляємо групу
@@ -287,14 +305,17 @@ const getMonday = () => {
             const lessonsContainer = document.createElement('div')
             lessonsContainer.innerHTML = `${allItems[c]} ${c}`
         //    timetable.append(lessonsContainer)
+        arrLessons.push(allItems[c])
             c += 3
         }
-
+        subAndGroupObj = {group:groups[i],lessonsList:arrLessons} // в об'єкт додаємо данні
+        subAndGroupArr.push(subAndGroupObj)
     }
 
     counter = 145
     c = counter
     for (let i = 28; i < 30; i++) {
+        let arrLessons =[]
         const groupsContainer = document.createElement('div')  // створюємо контейнер для груп
         groupsContainer.classList.add('groups_item') // додаємо клас
         groupsContainer.innerHTML = `${groups[i]}` //в середину контейнера вставляємо групу
@@ -305,15 +326,17 @@ const getMonday = () => {
             const lessonsContainer = document.createElement('div')
             lessonsContainer.innerHTML = `${allItems[c]}`
           //  timetable.append(lessonsContainer)
-
+          arrLessons.push(allItems[c])
             c += 2
         }
-
+        subAndGroupObj = {group:groups[i],lessonsList:arrLessons} // в об'єкт додаємо данні
+        subAndGroupArr.push(subAndGroupObj)
     }
 
     counter = 154
     c = counter
     for (let i = 30; i < 32; i++) {
+        let arrLessons =[]
         const groupsContainer = document.createElement('div')  // створюємо контейнер для груп
         groupsContainer.classList.add('groups_item') // додаємо клас
         groupsContainer.innerHTML = `${groups[i]}` //в середину контейнера вставляємо групу
@@ -325,14 +348,17 @@ const getMonday = () => {
             const lessonsContainer = document.createElement('div')
             lessonsContainer.innerHTML = `${allItems[c]}`
            // timetable.append(lessonsContainer)
+           arrLessons.push(allItems[c])
             c += 2
         }
-
+        subAndGroupObj = {group:groups[i],lessonsList:arrLessons} // в об'єкт додаємо данні
+        subAndGroupArr.push(subAndGroupObj)
     }
 
     counter = 163
     c = counter
     for (let i = 32; i < 34; i++) {
+        let arrLessons =[]
         const groupsContainer = document.createElement('div')  // створюємо контейнер для груп
         groupsContainer.classList.add('groups_item') // додаємо клас
         groupsContainer.innerHTML = `${groups[i]}` //в середину контейнера вставляємо групу
@@ -344,14 +370,17 @@ const getMonday = () => {
             const lessonsContainer = document.createElement('div')
             lessonsContainer.innerHTML = `${allItems[c]}`
           //  timetable.append(lessonsContainer)
+          arrLessons.push(allItems[c])
             c += 2
         }
-
+        subAndGroupObj = {group:groups[i],lessonsList:arrLessons} // в об'єкт додаємо данні
+        subAndGroupArr.push(subAndGroupObj)
     }
 
     counter = 174
     c = counter
     for (let i = 34; i < 36; i++) {
+        let arrLessons =[]
         const groupsContainer = document.createElement('div')  // створюємо контейнер для груп
         groupsContainer.classList.add('groups_item') // додаємо клас
         groupsContainer.innerHTML = `${groups[i]}` //в середину контейнера вставляємо групу
@@ -363,14 +392,16 @@ const getMonday = () => {
             const lessonsContainer = document.createElement('div')
             lessonsContainer.innerHTML = `${allItems[c]}`
            // timetable.append(lessonsContainer)
+           arrLessons.push(allItems[c])
             c += 2
         }
-
+        subAndGroupObj = {group:groups[i],lessonsList:arrLessons} // в об'єкт додаємо данні
+        subAndGroupArr.push(subAndGroupObj)
     }
 
-    
+    console.log(subAndGroupArr);
     for(let i=0; i<= subAndGroupArr.length; i++){
-        if(inputGroup.value == subAndGroupArr[i].group.toString()){
+        if(inputGroup.value.toString() == subAndGroupArr[i].group.toString()){
             console.log(subAndGroupArr[i].group);
             console.log(subAndGroupArr[i].lessonsList);
 
@@ -382,7 +413,7 @@ const getMonday = () => {
                 const lessonCon = document.createElement('div')
 
                // console.log(subAndGroupArr[i].lessonsList[j]);
-               console.log(j);
+
                 lessonCon.innerHTML = `${subAndGroupArr[i].lessonsList[j]}`
                 timetable.append(lessonCon)
             }
