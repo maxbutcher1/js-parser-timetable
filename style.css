@@ -6,6 +6,7 @@
     
 }
 
+
 tr{
     display: flex;
     align-items: center;
@@ -18,6 +19,7 @@ td{
 
 .groups_item{
     margin-top: 25px;
+    border-top: 2px solid black;
 }
 
 .btn_list, .input_field{
@@ -42,4 +44,8 @@ td{
 
 .input_field{
     margin-bottom: 10px;
+}
+
+.softmerge-inner{
+   width: 100%!important;
 }
