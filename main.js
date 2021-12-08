@@ -1,4 +1,4 @@
-
+'use strict'
 const timetable = document.querySelector('.timetable')
 const inputGroup = document.querySelector('.input_group')
 
@@ -182,6 +182,9 @@ const getMonday = () => {
         subAndGroupObj = {group:groups[i],lessonsList:arrLessons} // в об'єкт додаємо данні
         subAndGroupArr.push(subAndGroupObj)
     }
+
+   
+    
 
     counter = 43
     c = counter
@@ -398,13 +401,15 @@ const getMonday = () => {
         subAndGroupObj = {group:groups[i],lessonsList:arrLessons} // в об'єкт додаємо данні
         subAndGroupArr.push(subAndGroupObj)
     }
-
-    console.log(subAndGroupArr);
+    
+    console.log(subAndGroupArr[35].group.split(' ').join('') === '407-К');
+    console.log(subAndGroupArr[35].group);
+    
     for(let i=0; i<= subAndGroupArr.length; i++){
-        if(inputGroup.value.toString() == subAndGroupArr[i].group.toString()){
+        if(inputGroup.value.split(' ').join('') === subAndGroupArr[i].group.split(' ').join('').toLowerCase()){
             console.log(subAndGroupArr[i].group);
             console.log(subAndGroupArr[i].lessonsList);
-
+            
             const groupCon = document.createElement('div')
             groupCon.innerHTML = `${subAndGroupArr[i].group}`
             timetable.append(groupCon)
