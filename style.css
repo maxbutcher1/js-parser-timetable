@@ -1,10 +1,26 @@
+body{
+    width: 470px;
+    min-height: 330px;
+    padding: 5px;
+}
+
+.container{
+    background-color: #1b1e20;
+    border-radius: 5px;
+    padding: 5px;
+    min-height: 325px;
+}
 .timetable{
     display: flex;
     flex-direction: column;
     text-align: center;
-    
-    
+    font-weight: bold;
+    font-size: 22px;
+
+    padding-top: 10px;
+    color: #fff;
 }
+
 
 
 tr{
@@ -18,8 +34,9 @@ td{
 }
 
 .groups_item{
-    margin-top: 25px;
-    border-top: 2px solid black;
+    /*margin-top: 25px;
+    border-top: 2px solid black;*/
+    color: #fdb622;
 }
 
 .btn_list, .input_field{
@@ -30,14 +47,23 @@ td{
 
 .btn{
     background-color: transparent;
-    border:  1px solid black;
+    border:  1px solid #fff;
     border-radius: 10px;
     padding: 5px;
     width: 80px;
     margin: 0 5px 0 5px;
     cursor: pointer;
+
+    font-weight: bold;
+    color: #fff;
 }
 .btn:hover{
+    color: #8ac832;
+    border-color:  #8ac832;
+}
+
+.active{
+    
     color: #fdb622;
     border-color:  #fdb622;
 }
@@ -48,4 +74,11 @@ td{
 
 .softmerge-inner{
    width: 100%!important;
+}
+
+.input_field{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 2;
 }

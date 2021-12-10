@@ -1,6 +1,7 @@
 'use strict'
 const timetable = document.querySelector('.timetable')
 const inputGroup = document.querySelector('.input_group')
+const groupSelected = document.querySelector('#group')
 
 let globalData
 
@@ -22,8 +23,9 @@ const wednesday = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpSkr059jyQU
 const thursday = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRDA31eofItYZ5nQWwfvF26yq8Snig-oGbtdisOuAm2Ur0-v1h-Qwdmh3-eT3nQGRKW1e7D7KQ2UjUq/pubhtml'
 const friday = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTwv0DHzrT97qJvh7lBovx6BubKJIO_gk_Lesgyn22RlxMclC3z1OW6TKJDhFe1CBJ6fGDSUcciZXzX/pubhtml'
 const saturday = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vScVScHS0fxSDzdeJwVFgTXo0mSfgZ-Z65KzCLc1bcsX-73tI4UW4Fie8CMpCMVdTD34JNNoM0-oN-7/pubhtml'
-
-/*Days buttons */
+/*
+//Days buttons
+*/
 const mo = document.querySelector('.mo')
 const tu = document.querySelector('.tu')
 const we = document.querySelector('.we')
@@ -44,6 +46,12 @@ mo.addEventListener('click', () => {
     timetable.innerHTML = ''
     fetchData(monday)
     currDay = 'mo'
+    mo.classList.add('active')
+    tu.classList.remove('active')
+    we.classList.remove('active')
+    th.classList.remove('active')
+    fr.classList.remove('active')
+    sa.classList.remove('active')
 
 })
 tu.addEventListener('click', () => {
@@ -57,6 +65,12 @@ tu.addEventListener('click', () => {
     timetable.innerHTML = ''
     fetchData(tuesday)
     currDay = 'tu'
+    mo.classList.remove('active')
+    tu.classList.add('active')
+    we.classList.remove('active')
+    th.classList.remove('active')
+    fr.classList.remove('active')
+    sa.classList.remove('active')
 })
 we.addEventListener('click',()=>{
     groups = []
@@ -69,6 +83,12 @@ we.addEventListener('click',()=>{
     timetable.innerHTML = ''
     fetchData(wednesday)
     currDay = 'we'
+    mo.classList.remove('active')
+    tu.classList.remove('active')
+    we.classList.add('active')
+    th.classList.remove('active')
+    fr.classList.remove('active')
+    sa.classList.remove('active')
 })
 th.addEventListener('click',()=>{
     groups = []
@@ -81,6 +101,12 @@ th.addEventListener('click',()=>{
     timetable.innerHTML = ''
     fetchData(thursday)
     currDay = 'th'
+    mo.classList.remove('active')
+    tu.classList.remove('active')
+    we.classList.remove('active')
+    th.classList.add('active')
+    fr.classList.remove('active')
+    sa.classList.remove('active')
 })
 fr.addEventListener('click',()=>{
     groups = []
@@ -93,6 +119,12 @@ fr.addEventListener('click',()=>{
     timetable.innerHTML = ''
     fetchData(friday)
     currDay = 'fr'
+    mo.classList.remove('active')
+    tu.classList.remove('active')
+    we.classList.remove('active')
+    th.classList.remove('active')
+    fr.classList.add('active')
+    sa.classList.remove('active')
 })
 sa.addEventListener('click',()=>{
     groups = []
@@ -105,6 +137,12 @@ sa.addEventListener('click',()=>{
     timetable.innerHTML = ''
     fetchData(saturday)
     currDay = 'sa'
+    mo.classList.remove('active')
+    tu.classList.remove('active')
+    we.classList.remove('active')
+    th.classList.remove('active')
+    fr.classList.remove('active')
+    sa.classList.add('active')
 })
 
 /*END buttons */
@@ -176,7 +214,7 @@ const displayData = (data) => {
             break;
     }
 
-
+    
 }
 
 //готово
@@ -296,15 +334,14 @@ const getMonday = () => {
     for (let i = 34; i < 36; i++) {
         leasons6(counter, c, i, 2)
     }
-
-
+    //console.log(groupSelected.value);
     for (let i = 0; i <= subAndGroupArr.length; i++) {
-        if (inputGroup.value.toLowerCase().split(' ').join('') === subAndGroupArr[i]?.group.toLowerCase().split(' ').join('')) {
+        if (groupSelected.value.toLowerCase().split(' ').join('') === subAndGroupArr[i]?.group.toLowerCase().split(' ').join('')) {
             console.log(subAndGroupArr[i]?.group);
             console.log(subAndGroupArr[i].lessonsList);
 
             const groupCon = document.createElement('div')
-
+            groupCon.classList.add('groups_item') 
             if (subAndGroupArr[i].group) {
 
                 groupCon.innerHTML = `${subAndGroupArr[i]?.group}`
@@ -326,7 +363,7 @@ const getMonday = () => {
     }
 }
 const getTuesday = () => {
-    console.log(allItems);
+    //console.log(allItems);
 
 
     const leasons5 = (a, b, i, count) => {
@@ -444,12 +481,12 @@ const getTuesday = () => {
 
 
     for (let i = 0; i <= subAndGroupArr.length; i++) {
-        if (inputGroup.value.toLowerCase().split(' ').join('') === subAndGroupArr[i]?.group.toLowerCase().split(' ').join('')) {
+        if (groupSelected.value.toLowerCase().split(' ').join('') === subAndGroupArr[i]?.group.toLowerCase().split(' ').join('')) {
             console.log(subAndGroupArr[i]?.group);
             console.log(subAndGroupArr[i].lessonsList);
 
             const groupCon = document.createElement('div')
-
+            groupCon.classList.add('groups_item')
             if (subAndGroupArr[i].group) {
 
                 groupCon.innerHTML = `${subAndGroupArr[i]?.group}`
@@ -471,7 +508,7 @@ const getTuesday = () => {
     }
 }
 const getWednesday = () => {
-    console.log(allItems);
+    //console.log(allItems);
 
 
     const leasons5 = (a, b, i, count) => {
@@ -589,12 +626,12 @@ const getWednesday = () => {
 
 
     for (let i = 0; i <= subAndGroupArr.length; i++) {
-        if (inputGroup.value.toLowerCase().split(' ').join('') === subAndGroupArr[i]?.group.toLowerCase().split(' ').join('')) {
+        if (groupSelected.value.toLowerCase().split(' ').join('') === subAndGroupArr[i]?.group.toLowerCase().split(' ').join('')) {
             console.log(subAndGroupArr[i]?.group);
             console.log(subAndGroupArr[i].lessonsList);
 
             const groupCon = document.createElement('div')
-
+            groupCon.classList.add('groups_item')
             if (subAndGroupArr[i].group) {
 
                 groupCon.innerHTML = `${subAndGroupArr[i]?.group}`
@@ -616,7 +653,7 @@ const getWednesday = () => {
     }
 }
 const getThursday = () => {
-    console.log(allItems);
+    //console.log(allItems);
 
 
     const leasons5 = (a, b, i, count) => {
@@ -734,12 +771,12 @@ const getThursday = () => {
 
 
     for (let i = 0; i <= subAndGroupArr.length; i++) {
-        if (inputGroup.value.toLowerCase().split(' ').join('') === subAndGroupArr[i]?.group.toLowerCase().split(' ').join('')) {
+        if (groupSelected.value.toLowerCase().split(' ').join('') === subAndGroupArr[i]?.group.toLowerCase().split(' ').join('')) {
             console.log(subAndGroupArr[i]?.group);
             console.log(subAndGroupArr[i].lessonsList);
 
             const groupCon = document.createElement('div')
-
+            groupCon.classList.add('groups_item')
             if (subAndGroupArr[i].group) {
 
                 groupCon.innerHTML = `${subAndGroupArr[i]?.group}`
@@ -761,7 +798,7 @@ const getThursday = () => {
     }
 }
 const getFriday = () => {
-    console.log(allItems);
+    //console.log(allItems);
 
 
     const leasons5 = (a, b, i, count) => {
@@ -879,12 +916,12 @@ const getFriday = () => {
 
 
     for (let i = 0; i <= subAndGroupArr.length; i++) {
-        if (inputGroup.value.toLowerCase().split(' ').join('') === subAndGroupArr[i]?.group.toLowerCase().split(' ').join('')) {
+        if (groupSelected.value.toLowerCase().split(' ').join('') === subAndGroupArr[i]?.group.toLowerCase().split(' ').join('')) {
             console.log(subAndGroupArr[i]?.group);
             console.log(subAndGroupArr[i].lessonsList);
 
             const groupCon = document.createElement('div')
-
+            groupCon.classList.add('groups_item')
             if (subAndGroupArr[i].group) {
 
                 groupCon.innerHTML = `${subAndGroupArr[i]?.group}`
@@ -906,7 +943,7 @@ const getFriday = () => {
     }
 }
 const getSaturday = () => {
-    console.log(allItems);
+    //console.log(allItems);
 
 
     const leasons5 = (a, b, i, count) => {
@@ -1024,12 +1061,12 @@ const getSaturday = () => {
 
 
     for (let i = 0; i <= subAndGroupArr.length; i++) {
-        if (inputGroup.value.toLowerCase().split(' ').join('') === subAndGroupArr[i]?.group.toLowerCase().split(' ').join('')) {
+        if (groupSelected.value.toLowerCase().split(' ').join('') === subAndGroupArr[i]?.group.toLowerCase().split(' ').join('')) {
             console.log(subAndGroupArr[i]?.group);
             console.log(subAndGroupArr[i].lessonsList);
 
             const groupCon = document.createElement('div')
-
+            groupCon.classList.add('groups_item')
             if (subAndGroupArr[i].group) {
 
                 groupCon.innerHTML = `${subAndGroupArr[i]?.group}`
@@ -1050,3 +1087,16 @@ const getSaturday = () => {
 
     }
 }
+
+
+/* const getGroup=()=>{
+    console.log(groups);
+    for(let i =0; i<= 35;i++){
+        const groupsSelector = document.createElement('option')  
+    //groupsSelector.classList.add('groups_item') 
+        groupsSelector.innerHTML = `${groups[i]}`
+        console.log();
+        console.log(groupSelected.value);
+        groupSelected.append(groupsSelector)
+    } 
+}*/

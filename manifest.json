@@ -1,0 +1,14 @@
+{
+  "manifest_version": 2,
+  "name": "Парсер розкладу занять 'ІФК'",
+  "description": "Розширення яке допоможе отримати розклад занять.",
+  "version": "1.0.0",
+  "author": "Maksym Tolstykh",
+  "icons": {"192": "logo192.png"},
+  "browser_action": {
+    "default_title": "Парсер розкладу занять 'ІФК'",
+    "default_icon": "logo.png",
+    "default_popup": "index.html"
+  },
+  "permissions": []
+}
