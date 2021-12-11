@@ -3,10 +3,8 @@ const timetable = document.querySelector('.timetable')
 const inputGroup = document.querySelector('.input_group')
 const groupSelected = document.querySelector('#group')
 
-let globalData
 
 let groups = []
-let lessons = []
 const curr_group = 0
 const curr_lesson = 1
 
@@ -36,14 +34,7 @@ const sa = document.querySelector('.sa')
 let currDay = ''
 /* buttons */
 mo.addEventListener('click', () => {
-    groups = []
-    allItems = []
-    subAndGroupArr = []
-    subAndGroupObj = {
-        group: '',
-        lessonsList: []
-    }
-    timetable.innerHTML = ''
+    resetData()
     fetchData(monday)
     currDay = 'mo'
     mo.classList.add('active')
@@ -55,14 +46,7 @@ mo.addEventListener('click', () => {
 
 })
 tu.addEventListener('click', () => {
-    groups = []
-    allItems = []
-    subAndGroupArr = []
-    subAndGroupObj = {
-        group: '',
-        lessonsList: []
-    }
-    timetable.innerHTML = ''
+    resetData()
     fetchData(tuesday)
     currDay = 'tu'
     mo.classList.remove('active')
@@ -73,14 +57,7 @@ tu.addEventListener('click', () => {
     sa.classList.remove('active')
 })
 we.addEventListener('click',()=>{
-    groups = []
-    allItems = []
-    subAndGroupArr = []
-    subAndGroupObj = {
-        group: '',
-        lessonsList: []
-    }
-    timetable.innerHTML = ''
+    resetData()
     fetchData(wednesday)
     currDay = 'we'
     mo.classList.remove('active')
@@ -91,14 +68,7 @@ we.addEventListener('click',()=>{
     sa.classList.remove('active')
 })
 th.addEventListener('click',()=>{
-    groups = []
-    allItems = []
-    subAndGroupArr = []
-    subAndGroupObj = {
-        group: '',
-        lessonsList: []
-    }
-    timetable.innerHTML = ''
+    resetData()
     fetchData(thursday)
     currDay = 'th'
     mo.classList.remove('active')
@@ -109,14 +79,7 @@ th.addEventListener('click',()=>{
     sa.classList.remove('active')
 })
 fr.addEventListener('click',()=>{
-    groups = []
-    allItems = []
-    subAndGroupArr = []
-    subAndGroupObj = {
-        group: '',
-        lessonsList: []
-    }
-    timetable.innerHTML = ''
+    resetData()
     fetchData(friday)
     currDay = 'fr'
     mo.classList.remove('active')
@@ -127,14 +90,7 @@ fr.addEventListener('click',()=>{
     sa.classList.remove('active')
 })
 sa.addEventListener('click',()=>{
-    groups = []
-    allItems = []
-    subAndGroupArr = []
-    subAndGroupObj = {
-        group: '',
-        lessonsList: []
-    }
-    timetable.innerHTML = ''
+    resetData()
     fetchData(saturday)
     currDay = 'sa'
     mo.classList.remove('active')
@@ -146,6 +102,17 @@ sa.addEventListener('click',()=>{
 })
 
 /*END buttons */
+
+const resetData=()=>{
+    groups = []
+    allItems = []
+    subAndGroupArr = []
+    subAndGroupObj = {
+        group: '',
+        lessonsList: []
+    }
+    timetable.innerHTML = ''
+}
 
 const fetchData = (nameOfDay) => {
 
@@ -169,7 +136,7 @@ const displayData = (data) => {
         const text = tdItem.innerHTML
         
         //const r = /^[^0-9]*$/; //регулярка видаляє деякі пари де є цифри
-        const textRegExp = /(Зміни до розкладу|Чисельник|Навчальна частина|спорт.зал|гурт. м|Понеділок|Вівторок|Середа|Четвер|П'ятниця|Субота)/;
+        const textRegExp = /(Зміни до розкладу|Чисельник|Знаменник|Навчальна частина|спорт.зал|гурт. м|Понеділок|Вівторок|Середа|Четвер|П'ятниця|Субота)/;
 
         if (isNaN(text[0]) && text[0] != 'н' && !textRegExp.test(text)) {//(text.match(r) && !textRegExp.test(text))
             //console.log(text);
@@ -216,48 +183,46 @@ const displayData = (data) => {
 
     
 }
+const leasons5 = (a, b, i, count) => {
+    let arrLessons = []
+    const groupsContainer = document.createElement('div')  // створюємо контейнер для груп
+    groupsContainer.classList.add('groups_item') // додаємо клас
+    groupsContainer.innerHTML = `${groups[i]}` //в середину контейнера вставляємо групу
+    //timetable.append(groupsContainer) //вставляємо в html
+    b = a
+    b = a + i
+    for (let j = 1; j <= 5; j++) {
+        const lessonsContainer = document.createElement('div')
+        lessonsContainer.innerHTML = `${allItems[b]} ${b}`
+        //timetable.append(lessonsContainer)
+        arrLessons.push(allItems[b])
+        b += count
+    }
+    subAndGroupObj = { group: groups[i], lessonsList: arrLessons } // в об'єкт додаємо данні
+    subAndGroupArr.push(subAndGroupObj)
+}
+const leasons6 = (a, b, i, count) => {
+    let arrLessons = []
+    const groupsContainer = document.createElement('div')  // створюємо контейнер для груп
+    groupsContainer.classList.add('groups_item') // додаємо клас
+    groupsContainer.innerHTML = `${groups[i]}` //в середину контейнера вставляємо групу
+    // timetable.append(groupsContainer) //вставляємо в html
+    b = a
+    b = a + i
+    for (let j = 1; j <= 6; j++) {
+        const lessonsContainer = document.createElement('div')
+        lessonsContainer.innerHTML = `${allItems[b]}`
+        //  timetable.append(lessonsContainer)
+        arrLessons.push(allItems[b])
+        b += count
+    }
+    subAndGroupObj = { group: groups[i], lessonsList: arrLessons } // в об'єкт додаємо данні
+    subAndGroupArr.push(subAndGroupObj)
+}
 
 //готово
 const getMonday = () => {
-
-
-
-    const leasons5 = (a, b, i, count) => {
-        let arrLessons = []
-        const groupsContainer = document.createElement('div')  // створюємо контейнер для груп
-        groupsContainer.classList.add('groups_item') // додаємо клас
-        groupsContainer.innerHTML = `${groups[i]}` //в середину контейнера вставляємо групу
-        // timetable.append(groupsContainer) //вставляємо в html
-        b = a
-        b = a + i
-        for (let j = 1; j <= 5; j++) {
-            const lessonsContainer = document.createElement('div')
-            lessonsContainer.innerHTML = `${allItems[b]}`
-            //  timetable.append(lessonsContainer)
-            arrLessons.push(allItems[b])
-            b += count
-        }
-        subAndGroupObj = { group: groups[i], lessonsList: arrLessons } // в об'єкт додаємо данні
-        subAndGroupArr.push(subAndGroupObj)
-    }
-    const leasons6 = (a, b, i, count) => {
-        let arrLessons = []
-        const groupsContainer = document.createElement('div')  // створюємо контейнер для груп
-        groupsContainer.classList.add('groups_item') // додаємо клас
-        groupsContainer.innerHTML = `${groups[i]}` //в середину контейнера вставляємо групу
-        // timetable.append(groupsContainer) //вставляємо в html
-        b = a
-        b = a + i
-        for (let j = 1; j <= 6; j++) {
-            const lessonsContainer = document.createElement('div')
-            lessonsContainer.innerHTML = `${allItems[b]}`
-            //  timetable.append(lessonsContainer)
-            arrLessons.push(allItems[b])
-            b += count
-        }
-        subAndGroupObj = { group: groups[i], lessonsList: arrLessons } // в об'єкт додаємо данні
-        subAndGroupArr.push(subAndGroupObj)
-    }
+    //console.log(allItems);
 
     let counter = 6 // лічильник який починається з 6 індексу так як гупи починаються саме з нього
     let c;
@@ -364,44 +329,6 @@ const getMonday = () => {
 }
 const getTuesday = () => {
     //console.log(allItems);
-
-
-    const leasons5 = (a, b, i, count) => {
-        let arrLessons = []
-        const groupsContainer = document.createElement('div')  // створюємо контейнер для груп
-        groupsContainer.classList.add('groups_item') // додаємо клас
-        groupsContainer.innerHTML = `${groups[i]}` //в середину контейнера вставляємо групу
-         //timetable.append(groupsContainer) //вставляємо в html
-        b = a
-        b = a + i
-        for (let j = 1; j <= 5; j++) {
-            const lessonsContainer = document.createElement('div')
-            lessonsContainer.innerHTML = `${allItems[b]} ${b}`
-          //timetable.append(lessonsContainer)
-            arrLessons.push(allItems[b])
-            b += count
-        }
-        subAndGroupObj = { group: groups[i], lessonsList: arrLessons } // в об'єкт додаємо данні
-        subAndGroupArr.push(subAndGroupObj)
-    }
-    const leasons6 = (a, b, i, count) => {
-        let arrLessons = []
-        const groupsContainer = document.createElement('div')  // створюємо контейнер для груп
-        groupsContainer.classList.add('groups_item') // додаємо клас
-        groupsContainer.innerHTML = `${groups[i]}` //в середину контейнера вставляємо групу
-         //timetable.append(groupsContainer) //вставляємо в html
-        b = a
-        b = a + i
-        for (let j = 1; j <= 6; j++) {
-            const lessonsContainer = document.createElement('div')
-            lessonsContainer.innerHTML = `${allItems[b] }${b}`
-              //timetable.append(lessonsContainer)
-            arrLessons.push(allItems[b])
-            b += count
-        }
-        subAndGroupObj = { group: groups[i], lessonsList: arrLessons } // в об'єкт додаємо данні
-        subAndGroupArr.push(subAndGroupObj)
-    }
 
     let counter = 6 // лічильник який починається з 6 індексу так як гупи починаються саме з нього
     let c;
@@ -511,42 +438,7 @@ const getWednesday = () => {
     //console.log(allItems);
 
 
-    const leasons5 = (a, b, i, count) => {
-        let arrLessons = []
-        const groupsContainer = document.createElement('div')  // створюємо контейнер для груп
-        groupsContainer.classList.add('groups_item') // додаємо клас
-        groupsContainer.innerHTML = `${groups[i]}` //в середину контейнера вставляємо групу
-        //timetable.append(groupsContainer) //вставляємо в html
-        b = a
-        b = a + i
-        for (let j = 1; j <= 5; j++) {
-            const lessonsContainer = document.createElement('div')
-            lessonsContainer.innerHTML = `${allItems[b]} ${b}`
-            //timetable.append(lessonsContainer)
-            arrLessons.push(allItems[b])
-            b += count
-        }
-        subAndGroupObj = { group: groups[i], lessonsList: arrLessons } // в об'єкт додаємо данні
-        subAndGroupArr.push(subAndGroupObj)
-    }
-    const leasons6 = (a, b, i, count) => {
-        let arrLessons = []
-        const groupsContainer = document.createElement('div')  // створюємо контейнер для груп
-        groupsContainer.classList.add('groups_item') // додаємо клас
-        groupsContainer.innerHTML = `${groups[i]}` //в середину контейнера вставляємо групу
-        //timetable.append(groupsContainer) //вставляємо в html
-        b = a
-        b = a + i
-        for (let j = 1; j <= 6; j++) {
-            const lessonsContainer = document.createElement('div')
-            lessonsContainer.innerHTML = `${allItems[b] }${b}`
-            //timetable.append(lessonsContainer)
-            arrLessons.push(allItems[b])
-            b += count
-        }
-        subAndGroupObj = { group: groups[i], lessonsList: arrLessons } // в об'єкт додаємо данні
-        subAndGroupArr.push(subAndGroupObj)
-    }
+    
 
     let counter = 6 // лічильник який починається з 6 індексу так як гупи починаються саме з нього
     let c;
@@ -654,44 +546,6 @@ const getWednesday = () => {
 }
 const getThursday = () => {
     //console.log(allItems);
-
-
-    const leasons5 = (a, b, i, count) => {
-        let arrLessons = []
-        const groupsContainer = document.createElement('div')  // створюємо контейнер для груп
-        groupsContainer.classList.add('groups_item') // додаємо клас
-        groupsContainer.innerHTML = `${groups[i]}` //в середину контейнера вставляємо групу
-        //timetable.append(groupsContainer) //вставляємо в html
-        b = a
-        b = a + i
-        for (let j = 1; j <= 5; j++) {
-            const lessonsContainer = document.createElement('div')
-            lessonsContainer.innerHTML = `${allItems[b]} ${b}`
-            //timetable.append(lessonsContainer)
-            arrLessons.push(allItems[b])
-            b += count
-        }
-        subAndGroupObj = { group: groups[i], lessonsList: arrLessons } // в об'єкт додаємо данні
-        subAndGroupArr.push(subAndGroupObj)
-    }
-    const leasons6 = (a, b, i, count) => {
-        let arrLessons = []
-        const groupsContainer = document.createElement('div')  // створюємо контейнер для груп
-        groupsContainer.classList.add('groups_item') // додаємо клас
-        groupsContainer.innerHTML = `${groups[i]}` //в середину контейнера вставляємо групу
-        //timetable.append(groupsContainer) //вставляємо в html
-        b = a
-        b = a + i
-        for (let j = 1; j <= 6; j++) {
-            const lessonsContainer = document.createElement('div')
-            lessonsContainer.innerHTML = `${allItems[b] }${b}`
-            //timetable.append(lessonsContainer)
-            arrLessons.push(allItems[b])
-            b += count
-        }
-        subAndGroupObj = { group: groups[i], lessonsList: arrLessons } // в об'єкт додаємо данні
-        subAndGroupArr.push(subAndGroupObj)
-    }
 
     let counter = 6 // лічильник який починається з 6 індексу так як гупи починаються саме з нього
     let c;
@@ -801,43 +655,6 @@ const getFriday = () => {
     //console.log(allItems);
 
 
-    const leasons5 = (a, b, i, count) => {
-        let arrLessons = []
-        const groupsContainer = document.createElement('div')  // створюємо контейнер для груп
-        groupsContainer.classList.add('groups_item') // додаємо клас
-        groupsContainer.innerHTML = `${groups[i]}` //в середину контейнера вставляємо групу
-        //timetable.append(groupsContainer) //вставляємо в html
-        b = a
-        b = a + i
-        for (let j = 1; j <= 5; j++) {
-            const lessonsContainer = document.createElement('div')
-            lessonsContainer.innerHTML = `${allItems[b]} ${b}`
-            //timetable.append(lessonsContainer)
-            arrLessons.push(allItems[b])
-            b += count
-        }
-        subAndGroupObj = { group: groups[i], lessonsList: arrLessons } // в об'єкт додаємо данні
-        subAndGroupArr.push(subAndGroupObj)
-    }
-    const leasons6 = (a, b, i, count) => {
-        let arrLessons = []
-        const groupsContainer = document.createElement('div')  // створюємо контейнер для груп
-        groupsContainer.classList.add('groups_item') // додаємо клас
-        groupsContainer.innerHTML = `${groups[i]}` //в середину контейнера вставляємо групу
-        //timetable.append(groupsContainer) //вставляємо в html
-        b = a
-        b = a + i
-        for (let j = 1; j <= 6; j++) {
-            const lessonsContainer = document.createElement('div')
-            lessonsContainer.innerHTML = `${allItems[b] }${b}`
-            //timetable.append(lessonsContainer)
-            arrLessons.push(allItems[b])
-            b += count
-        }
-        subAndGroupObj = { group: groups[i], lessonsList: arrLessons } // в об'єкт додаємо данні
-        subAndGroupArr.push(subAndGroupObj)
-    }
-
     let counter = 6 // лічильник який починається з 6 індексу так як гупи починаються саме з нього
     let c;
     /*Перший цикл який відповідає за перші 4 елемента в таблиці */
@@ -946,42 +763,6 @@ const getSaturday = () => {
     //console.log(allItems);
 
 
-    const leasons5 = (a, b, i, count) => {
-        let arrLessons = []
-        const groupsContainer = document.createElement('div')  // створюємо контейнер для груп
-        groupsContainer.classList.add('groups_item') // додаємо клас
-        groupsContainer.innerHTML = `${groups[i]}` //в середину контейнера вставляємо групу
-        //timetable.append(groupsContainer) //вставляємо в html
-        b = a
-        b = a + i
-        for (let j = 1; j <= 5; j++) {
-            const lessonsContainer = document.createElement('div')
-            lessonsContainer.innerHTML = `${allItems[b]} ${b}`
-            //timetable.append(lessonsContainer)
-            arrLessons.push(allItems[b])
-            b += count
-        }
-        subAndGroupObj = { group: groups[i], lessonsList: arrLessons } // в об'єкт додаємо данні
-        subAndGroupArr.push(subAndGroupObj)
-    }
-    const leasons6 = (a, b, i, count) => {
-        let arrLessons = []
-        const groupsContainer = document.createElement('div')  // створюємо контейнер для груп
-        groupsContainer.classList.add('groups_item') // додаємо клас
-        groupsContainer.innerHTML = `${groups[i]}` //в середину контейнера вставляємо групу
-        //timetable.append(groupsContainer) //вставляємо в html
-        b = a
-        b = a + i
-        for (let j = 1; j <= 6; j++) {
-            const lessonsContainer = document.createElement('div')
-            lessonsContainer.innerHTML = `${allItems[b] }${b}`
-            //timetable.append(lessonsContainer)
-            arrLessons.push(allItems[b])
-            b += count
-        }
-        subAndGroupObj = { group: groups[i], lessonsList: arrLessons } // в об'єкт додаємо данні
-        subAndGroupArr.push(subAndGroupObj)
-    }
 
     let counter = 6 // лічильник який починається з 6 індексу так як гупи починаються саме з нього
     let c;
