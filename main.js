@@ -2,6 +2,7 @@
 const timetable = document.querySelector('.timetable')
 const inputGroup = document.querySelector('.input_group')
 const groupSelected = document.querySelector('#group')
+const dateOfLessons = document.querySelector('.dateOfLessons')
 
 
 let groups = []
@@ -106,12 +107,14 @@ sa.addEventListener('click',()=>{
 const resetData=()=>{
     groups = []
     allItems = []
+    otherData= []
     subAndGroupArr = []
     subAndGroupObj = {
         group: '',
         lessonsList: []
     }
     timetable.innerHTML = ''
+    dateOfLessons.innerHTML= ''
 }
 
 const fetchData = (nameOfDay) => {
@@ -125,7 +128,7 @@ const fetchData = (nameOfDay) => {
         })
 }
 
-
+let otherData = []
 const displayData = (data) => {
     let str = data
     const parser = new DOMParser()
@@ -138,7 +141,7 @@ const displayData = (data) => {
         //const r = /^[^0-9]*$/; //регулярка видаляє деякі пари де є цифри
         const textRegExp = /(Зміни до розкладу|Чисельник|Знаменник|Навчальна частина|спорт.зал|гурт. м|Понеділок|Вівторок|Середа|Четвер|П'ятниця|Субота)/;
 
-        if (isNaN(text[0]) && text[0] != 'н' && !textRegExp.test(text)) {//(text.match(r) && !textRegExp.test(text))
+        if (isNaN(text[0]) && text[0] != 'н' && !textRegExp.test(text) || text === ' ') {//(text.match(r) && !textRegExp.test(text))
             //console.log(text);
             allItems.push(text)
         }
@@ -148,9 +151,15 @@ const displayData = (data) => {
             groups.push(text)
 
         }
+        else{
+            otherData.push(text)
+        }
+        
 
     })
-
+    console.log(otherData);
+    getDateOfLessons()
+    // тут треба цикл і запушити все в масив або в об'єкт
  //додаємо в масив з групами пусті рядки щоб рахунок не збивався
     groups.splice(7, 0, '')
     groups.splice(10, 0, '')
@@ -183,52 +192,46 @@ const displayData = (data) => {
 
     
 }
-const leasons5 = (a, b, i, count) => {
+const getDateOfLessons=()=>{
+    dateOfLessons.innerHTML= `${otherData[1]}`
+    
+}
+const lessons = (a, b, i, count, lessonsCount) => {
     let arrLessons = []
     const groupsContainer = document.createElement('div')  // створюємо контейнер для груп
     groupsContainer.classList.add('groups_item') // додаємо клас
     groupsContainer.innerHTML = `${groups[i]}` //в середину контейнера вставляємо групу
-    //timetable.append(groupsContainer) //вставляємо в html
+    timetable.append(groupsContainer) //вставляємо в html
+    //  console.log(groups[i]);
     b = a
     b = a + i
-    for (let j = 1; j <= 5; j++) {
+    for (let j = 1; j <= lessonsCount; j++) {
         const lessonsContainer = document.createElement('div')
         lessonsContainer.innerHTML = `${allItems[b]} ${b}`
-        //timetable.append(lessonsContainer)
+        timetable.append(lessonsContainer)
         arrLessons.push(allItems[b])
         b += count
     }
+    let arrClass= []
+    // for(let c = 321; c<= 5;c++){
+    //    arrClass.push(otherData[c])
+      
+    // }
     subAndGroupObj = { group: groups[i], lessonsList: arrLessons } // в об'єкт додаємо данні
     subAndGroupArr.push(subAndGroupObj)
+    //console.log(arrClass);  
 }
-const leasons6 = (a, b, i, count) => {
-    let arrLessons = []
-    const groupsContainer = document.createElement('div')  // створюємо контейнер для груп
-    groupsContainer.classList.add('groups_item') // додаємо клас
-    groupsContainer.innerHTML = `${groups[i]}` //в середину контейнера вставляємо групу
-    // timetable.append(groupsContainer) //вставляємо в html
-    b = a
-    b = a + i
-    for (let j = 1; j <= 6; j++) {
-        const lessonsContainer = document.createElement('div')
-        lessonsContainer.innerHTML = `${allItems[b]}`
-        //  timetable.append(lessonsContainer)
-        arrLessons.push(allItems[b])
-        b += count
-    }
-    subAndGroupObj = { group: groups[i], lessonsList: arrLessons } // в об'єкт додаємо данні
-    subAndGroupArr.push(subAndGroupObj)
-}
+
 
 //готово
 const getMonday = () => {
-    //console.log(allItems);
-
+    console.log(allItems);
+    //console.log(otherData);
     let counter = 6 // лічильник який починається з 6 індексу так як гупи починаються саме з нього
     let c;
     /*Перший цикл який відповідає за перші 4 елемента в таблиці */
     for (let i = 0; i < 4; i++) {
-        leasons5(counter, c, i, 4)
+        lessons(counter, c, i, 4,5)
 
     }
 
@@ -236,68 +239,68 @@ const getMonday = () => {
     counter = 24
     c = counter
     for (let i = 4; i < 8; i++) {
-        leasons5(counter, c, i, 4)
+        lessons(counter, c, i, 4,5)
     }
 
 
     counter = 43
     c = counter
     for (let i = 8; i < 12; i++) {
-        leasons5(counter, c, i, 4)
+        lessons(counter, c, i, 4,5)
     }
 
     counter = 60
     c = counter
     for (let i = 12; i < 16; i++) {
-        leasons5(counter, c, i, 4)
+        lessons(counter, c, i, 4,5)
     }
 
     counter = 85
     c = counter
     for (let i = 16; i < 19; i++) {
-        leasons5(counter, c, i, 3)
+        lessons(counter, c, i, 3,5)
     }
 
     counter = 98
     c = counter
     for (let i = 19; i < 22; i++) {
-        leasons5(counter, c, i, 3)
+        lessons(counter, c, i, 3,5)
     }
 
     counter = 111
     c = counter
     for (let i = 22; i < 25; i++) {
-        leasons5(counter, c, i, 3)
+        lessons(counter, c, i, 3,5)
     }
 
     counter = 124
     c = counter
     for (let i = 25; i < 28; i++) {
-        leasons5(counter, c, i, 3)
+        lessons(counter, c, i, 3)
     }
 
     counter = 145
     c = counter
     for (let i = 28; i < 30; i++) {
-        leasons5(counter, c, i, 2)
+        lessons(counter, c, i, 2)
     }
 
     counter = 154
     c = counter
     for (let i = 30; i < 32; i++) {
-        leasons5(counter, c, i, 2)
+        lessons(counter, c, i, 2,5)
     }
 
     counter = 163
     c = counter
     for (let i = 32; i < 34; i++) {
-        leasons6(counter, c, i, 2)
+        lessons(counter, c, i, 2,6)
     }
 
     counter = 174
     c = counter
     for (let i = 34; i < 36; i++) {
-        leasons6(counter, c, i, 2)
+        lessons(counter, c, i, 2,6)
     }
     //console.log(groupSelected.value);
     for (let i = 0; i <= subAndGroupArr.length; i++) {
@@ -325,16 +328,16 @@ const getMonday = () => {
 
         }
 
-    }
+    }     
 }
 const getTuesday = () => {
-    //console.log(allItems);
+    console.log(allItems);
 
     let counter = 6 // лічильник який починається з 6 індексу так як гупи починаються саме з нього
     let c;
     /*Перший цикл який відповідає за перші 4 елемента в таблиці */
     for (let i = 0; i < 4; i++) {
-        leasons5(counter, c, i, 4)
+        lessons(counter, c, i, 4,5)
 
     }
 
@@ -342,68 +345,68 @@ const getTuesday = () => {
     counter = 24
     c = counter
     for (let i = 4; i < 8; i++) {
-        leasons5(counter, c, i, 4)
+        lessons(counter, c, i, 4,5)
     }
 
 //3
     counter = 43
     c = counter
     for (let i = 8; i < 12; i++) {
-        leasons5(counter, c, i, 4)
+        lessons(counter, c, i, 4,5)
     }
 //4
     counter = 60
     c = counter
     for (let i = 12; i < 16; i++) {
-        leasons5(counter, c, i, 4)
+        lessons(counter, c, i, 4,5)
     }
 //5
     counter = 93
     c = counter
     for (let i = 16; i < 19; i++) {
-        leasons5(counter, c, i, 3)
+        lessons(counter, c, i, 3,5)
     }
 //6
     counter = 106
     c = counter
     for (let i = 19; i < 22; i++) {
-        leasons5(counter, c, i, 3)
+        lessons(counter, c, i, 3,5)
     }
 //7
     counter = 119
     c = counter
     for (let i = 22; i < 25; i++) {
-        leasons5(counter, c, i, 3)
+        lessons(counter, c, i, 3,5)
     }
 //8
     counter = 132
     c = counter
     for (let i = 25; i < 28; i++) {
-        leasons5(counter, c, i, 3)
+        lessons(counter, c, i, 3,5)
     }
 //9
     counter = 153
     c = counter
     for (let i = 28; i < 30; i++) {
-        leasons5(counter, c, i, 2)
+        lessons(counter, c, i, 2,5)
     }
 //10
     counter = 162
     c = counter
     for (let i = 30; i < 32; i++) {
-        leasons5(counter, c, i, 2)
+        lessons(counter, c, i, 2,5)
     }
 //1
     counter = 171
     c = counter
     for (let i = 32; i < 34; i++) {
-        leasons6(counter, c, i, 2)
+        lessons(counter, c, i, 2,6)
     }
 //11
     counter = 182
     c = counter
     for (let i = 34; i < 36; i++) {
-        leasons6(counter, c, i, 2)
+        lessons(counter, c, i, 2,6)
     }
 
 
@@ -435,7 +438,7 @@ const getTuesday = () => {
     }
 }
 const getWednesday = () => {
-    //console.log(allItems);
+    console.log(allItems);
 
 
     
@@ -444,7 +447,7 @@ const getWednesday = () => {
     let c;
     /*Перший цикл який відповідає за перші 4 елемента в таблиці */
     for (let i = 0; i < 4; i++) {
-        leasons5(counter, c, i, 4)
+        lessons(counter, c, i, 4,5)
 
     }
 
@@ -452,68 +455,68 @@ const getWednesday = () => {
     counter = 24
     c = counter
     for (let i = 4; i < 8; i++) {
-        leasons5(counter, c, i, 4)
+        lessons(counter, c, i, 4,5)
     }
 
 //3
     counter = 43
     c = counter
     for (let i = 8; i < 12; i++) {
-        leasons5(counter, c, i, 4)
+        lessons(counter, c, i, 4,5)
     }
-//4 /// треба змінти таблицю бо розклад для груп (301-О	302 (209)-О	303-Ф 304 (210)-Ф) не працює
+//4 
     counter = 60
     c = counter
     for (let i = 12; i < 16; i++) {
-        leasons5(counter, c, i, 4)
+        lessons(counter, c, i, 4,5)
     }
 //5
     counter = 90
     c = counter
     for (let i = 16; i < 19; i++) {
-        leasons5(counter, c, i, 3)
+        lessons(counter, c, i, 3,5)
     }
 //6
     counter = 105
     c = counter
     for (let i = 19; i < 22; i++) {
-        leasons5(counter, c, i, 3)
+        lessons(counter, c, i, 3,5)
     }
 //7
     counter = 118
     c = counter
     for (let i = 22; i < 25; i++) {
-        leasons5(counter, c, i, 3)
+        lessons(counter, c, i, 3,5)
     }
 //8
     counter = 131
     c = counter
     for (let i = 25; i < 28; i++) {
-        leasons5(counter, c, i, 3)
+        lessons(counter, c, i, 3,5)
     }
 //9
     counter = 152
     c = counter
     for (let i = 28; i < 30; i++) {
-        leasons5(counter, c, i, 2)
+        lessons(counter, c, i, 2,5)
     }
 //10
     counter = 161
     c = counter
     for (let i = 30; i < 32; i++) {
-        leasons5(counter, c, i, 2)
+        lessons(counter, c, i, 2,5)
     }
 //1
     counter = 170
     c = counter
     for (let i = 32; i < 34; i++) {
-        leasons6(counter, c, i, 2)
+        lessons(counter, c, i, 2,6)
     }
 //11
     counter = 181
     c = counter
     for (let i = 34; i < 36; i++) {
-        leasons6(counter, c, i, 2)
+        lessons(counter, c, i, 2,6)
     }
 
 
@@ -545,13 +548,13 @@ const getWednesday = () => {
     }
 }
 const getThursday = () => {
-    //console.log(allItems);
+    console.log(allItems);
 
     let counter = 6 // лічильник який починається з 6 індексу так як гупи починаються саме з нього
     let c;
     /*Перший цикл який відповідає за перші 4 елемента в таблиці */
     for (let i = 0; i < 4; i++) {
-        leasons5(counter, c, i, 4)
+        lessons(counter, c, i, 4,5)
 
     }
 
@@ -559,68 +562,68 @@ const getThursday = () => {
     counter = 24
     c = counter
     for (let i = 4; i < 8; i++) {
-        leasons5(counter, c, i, 4)
+        lessons(counter, c, i, 4,5)
     }
 
 //3
     counter = 43
     c = counter
     for (let i = 8; i < 12; i++) {
-        leasons5(counter, c, i, 4)
+        lessons(counter, c, i, 4,5)
     }
-//4 /// треба змінти таблицю бо розклад для груп (301-О	302 (209)-О	303-Ф 304 (210)-Ф) не працює
+//4 
     counter = 60
     c = counter
     for (let i = 12; i < 16; i++) {
-        leasons5(counter, c, i, 4)
+        lessons(counter, c, i, 4,5)
     }
 //5
     counter = 87
     c = counter
     for (let i = 16; i < 19; i++) {
-        leasons5(counter, c, i, 3)
+        lessons(counter, c, i, 3,5)
     }
 //6
     counter = 100
     c = counter
     for (let i = 19; i < 22; i++) {
-        leasons5(counter, c, i, 3)
+        lessons(counter, c, i, 3,5)
     }
 //7
     counter = 113
     c = counter
     for (let i = 22; i < 25; i++) {
-        leasons5(counter, c, i, 3)
+        lessons(counter, c, i, 3,5)
     }
 //8
     counter = 126
     c = counter
     for (let i = 25; i < 28; i++) {
-        leasons5(counter, c, i, 3)
+        lessons(counter, c, i, 3,5)
     }
 //9
     counter = 147
     c = counter
     for (let i = 28; i < 30; i++) {
-        leasons5(counter, c, i, 2)
+        lessons(counter, c, i, 2,5)
     }
 //10
     counter = 156
     c = counter
     for (let i = 30; i < 32; i++) {
-        leasons5(counter, c, i, 2)
+        lessons(counter, c, i, 2,5)
     }
 //1
     counter = 165
     c = counter
     for (let i = 32; i < 34; i++) {
-        leasons6(counter, c, i, 2)
+        lessons(counter, c, i, 2,6)
     }
 //11
     counter = 175
     c = counter
     for (let i = 34; i < 36; i++) {
-        leasons6(counter, c, i, 2)
+        lessons(counter, c, i, 2,6)
     }
 
 
@@ -651,15 +654,15 @@ const getThursday = () => {
 
     }
 }
-const getFriday = () => {
-    //console.log(allItems);
+const getFriday = () => {   
+    console.log(allItems);
 
 
     let counter = 6 // лічильник який починається з 6 індексу так як гупи починаються саме з нього
     let c;
     /*Перший цикл який відповідає за перші 4 елемента в таблиці */
     for (let i = 0; i < 4; i++) {
-        leasons5(counter, c, i, 4)
+        lessons(counter, c, i, 4,5)
 
     }
 
@@ -667,68 +670,68 @@ const getFriday = () => {
     counter = 24
     c = counter
     for (let i = 4; i < 8; i++) {
-        leasons5(counter, c, i, 4)
+        lessons(counter, c, i, 4,5)
     }
 
 //3
     counter = 43
     c = counter
     for (let i = 8; i < 12; i++) {
-        leasons5(counter, c, i, 4)
+        lessons(counter, c, i, 4,5)
     }
-//4 /// треба змінти таблицю бо розклад для груп (301-О	302 (209)-О	303-Ф 304 (210)-Ф) не працює
+//4 
     counter = 60
     c = counter
     for (let i = 12; i < 16; i++) {
-        leasons5(counter, c, i, 4)
+        lessons(counter, c, i, 4,5)
     }
 //5
     counter = 87
     c = counter
     for (let i = 16; i < 19; i++) {
-        leasons5(counter, c, i, 3)
+        lessons(counter, c, i, 3,5)
     }
 //6
     counter = 100
     c = counter
     for (let i = 19; i < 22; i++) {
-        leasons5(counter, c, i, 3)
+        lessons(counter, c, i, 3,5)
     }
 //7
     counter = 113
     c = counter
     for (let i = 22; i < 25; i++) {
-        leasons5(counter, c, i, 3)
+        lessons(counter, c, i, 3,5)
     }
 //8
     counter = 126
     c = counter
     for (let i = 25; i < 28; i++) {
-        leasons5(counter, c, i, 3)
+        lessons(counter, c, i, 3,5)
     }
 //9
     counter = 147
     c = counter
     for (let i = 28; i < 30; i++) {
-        leasons5(counter, c, i, 2)
+        lessons(counter, c, i, 2,5)
     }
 //10
     counter = 156
     c = counter
     for (let i = 30; i < 32; i++) {
-        leasons5(counter, c, i, 2)
+        lessons(counter, c, i, 2,5)
     }
 //1
     counter = 166
     c = counter
     for (let i = 32; i < 34; i++) {
-        leasons6(counter, c, i, 2)
+        lessons(counter, c, i, 2,6)
     }
 //11
     counter = 176
     c = counter
     for (let i = 34; i < 36; i++) {
-        leasons6(counter, c, i, 2)
+        lessons(counter, c, i, 2,6)
     }
 
 
@@ -768,7 +771,7 @@ const getSaturday = () => {
     let c;
     /*Перший цикл який відповідає за перші 4 елемента в таблиці */
     for (let i = 0; i < 4; i++) {
-        leasons5(counter, c, i, 4)
+        lessons(counter, c, i, 4,5)
 
     }
 
@@ -776,68 +779,68 @@ const getSaturday = () => {
     counter = 24
     c = counter
     for (let i = 4; i < 8; i++) {
-        leasons5(counter, c, i, 4)
+        lessons(counter, c, i, 4,5)
     }
 
 //3
     counter = 43
     c = counter
     for (let i = 8; i < 12; i++) {
-        leasons5(counter, c, i, 4)
+        lessons(counter, c, i, 4,5)
     }
-//4 /// треба змінти таблицю бо розклад для груп (301-О	302 (209)-О	303-Ф 304 (210)-Ф) не працює
+//4 
     counter = 60
     c = counter
     for (let i = 12; i < 16; i++) {
-        leasons5(counter, c, i, 4)
+        lessons(counter, c, i, 4,5)
     }
 //5
     counter = 92
     c = counter
     for (let i = 16; i < 19; i++) {
-        leasons5(counter, c, i, 3)
+        lessons(counter, c, i, 3,5)
     }
 //6
     counter = 105
     c = counter
     for (let i = 19; i < 22; i++) {
-        leasons5(counter, c, i, 3)
+        lessons(counter, c, i, 3,5)
     }
 //7
     counter = 118
     c = counter
     for (let i = 22; i < 25; i++) {
-        leasons5(counter, c, i, 3)
+        lessons(counter, c, i, 3,5)
     }
 //8
     counter = 131
     c = counter
     for (let i = 25; i < 28; i++) {
-        leasons5(counter, c, i, 3)
+        lessons(counter, c, i, 3,5)
     }
 //9
     counter = 149
     c = counter
     for (let i = 28; i < 30; i++) {
-        leasons5(counter, c, i, 2)
+        lessons(counter, c, i, 2,5)
     }
 //10
     counter = 158
     c = counter
     for (let i = 30; i < 32; i++) {
-        leasons5(counter, c, i, 2)
+        lessons(counter, c, i, 2,5)
     }
 //11
     counter = 167
     c = counter
     for (let i = 32; i < 34; i++) {
-        leasons5(counter, c, i, 2)
+        lessons(counter, c, i, 2,5)
     }
 //12
     counter = 178
     c = counter
     for (let i = 34; i < 36; i++) {
-        leasons5(counter, c, i, 2)
+        lessons(counter, c, i, 2,5)
     }
 
 
@@ -868,16 +871,3 @@ const getSaturday = () => {
 
     }
 }
-
-
-/* const getGroup=()=>{
-    console.log(groups);
-    for(let i =0; i<= 35;i++){
-        const groupsSelector = document.createElement('option')  
-    //groupsSelector.classList.add('groups_item') 
-        groupsSelector.innerHTML = `${groups[i]}`
-        console.log();
-        console.log(groupSelected.value);
-        groupSelected.append(groupsSelector)
-    } 
-}*/
