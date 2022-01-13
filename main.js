@@ -3,6 +3,7 @@ const timetable = document.querySelector('.timetable')
 const inputGroup = document.querySelector('.input_group')
 const groupSelected = document.querySelector('#group')
 const dateOfLessons = document.querySelector('.dateOfLessons')
+const loader = document.querySelector('.lds-dual-ring')
 
 
 let groups = []
@@ -47,6 +48,7 @@ mo.addEventListener('click', () => {
     th.classList.remove('active')
     fr.classList.remove('active')
     sa.classList.remove('active')
+    loader.style.display="inline-block"
 
 })
 tu.addEventListener('click', () => {
@@ -59,6 +61,8 @@ tu.addEventListener('click', () => {
     th.classList.remove('active')
     fr.classList.remove('active')
     sa.classList.remove('active')
+    loader.style.display="inline-block"
+
 })
 we.addEventListener('click', () => {
     resetData()
@@ -70,6 +74,8 @@ we.addEventListener('click', () => {
     th.classList.remove('active')
     fr.classList.remove('active')
     sa.classList.remove('active')
+    loader.style.display="inline-block"
+
 })
 th.addEventListener('click', () => {
     resetData()
@@ -81,6 +87,8 @@ th.addEventListener('click', () => {
     th.classList.add('active')
     fr.classList.remove('active')
     sa.classList.remove('active')
+    loader.style.display="inline-block"
+
 })
 fr.addEventListener('click', () => {
     resetData()
@@ -92,6 +100,8 @@ fr.addEventListener('click', () => {
     th.classList.remove('active')
     fr.classList.add('active')
     sa.classList.remove('active')
+    loader.style.display="inline-block"
+
 })
 sa.addEventListener('click', () => {
     resetData()
@@ -103,6 +113,8 @@ sa.addEventListener('click', () => {
     th.classList.remove('active')
     fr.classList.remove('active')
     sa.classList.add('active')
+    loader.style.display="inline-block"
+
 })
 
 /*END buttons */
@@ -246,6 +258,7 @@ const lessons = (a, b, i, count, lessonsCount) => {
 const getDay = (a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12) => {
     //console.log(allItems);
     //console.log(otherData);
+    
     let counter = a1 // лічильник який починається з 6 індексу так як гупи починаються саме з нього
     let c;
     /*Перший цикл який відповідає за перші 4 елемента в таблиці */
@@ -322,7 +335,9 @@ const getDay = (a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12) => {
         lessons(counter, c, i, 2, 6)
     }
     //console.log(groupSelected.value);
+    
     getAuditories(354)
+    loader.style.display="none"
     for (let i = 0; i <= subAndGroupArr.length; i++) {
         if (groupSelected.value.toLowerCase().split(' ').join('') === subAndGroupArr[i]?.group.toLowerCase().split(' ').join('')) {
             console.log(subAndGroupArr[i]?.group);
@@ -432,7 +447,7 @@ const getSaturday = () => {
         lessons(counter, c, i, 2, 5)
     }
 
-
+    loader.style.display="none"
     for (let i = 0; i <= subAndGroupArr.length; i++) {
         console.log(`${subAndGroupArr[i]?.group} - ${i}`);
         //console.log(`${classRoomArr[i].group} - ${i}`);
