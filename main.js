@@ -48,7 +48,7 @@ mo.addEventListener('click', () => {
     th.classList.remove('active')
     fr.classList.remove('active')
     sa.classList.remove('active')
-    loader.style.display="inline-block"
+    loader.style.display = "inline-block"
 
 })
 tu.addEventListener('click', () => {
@@ -61,7 +61,7 @@ tu.addEventListener('click', () => {
     th.classList.remove('active')
     fr.classList.remove('active')
     sa.classList.remove('active')
-    loader.style.display="inline-block"
+    loader.style.display = "inline-block"
 
 })
 we.addEventListener('click', () => {
@@ -74,7 +74,7 @@ we.addEventListener('click', () => {
     th.classList.remove('active')
     fr.classList.remove('active')
     sa.classList.remove('active')
-    loader.style.display="inline-block"
+    loader.style.display = "inline-block"
 
 })
 th.addEventListener('click', () => {
@@ -87,7 +87,7 @@ th.addEventListener('click', () => {
     th.classList.add('active')
     fr.classList.remove('active')
     sa.classList.remove('active')
-    loader.style.display="inline-block"
+    loader.style.display = "inline-block"
 
 })
 fr.addEventListener('click', () => {
@@ -100,7 +100,7 @@ fr.addEventListener('click', () => {
     th.classList.remove('active')
     fr.classList.add('active')
     sa.classList.remove('active')
-    loader.style.display="inline-block"
+    loader.style.display = "inline-block"
 
 })
 sa.addEventListener('click', () => {
@@ -113,11 +113,12 @@ sa.addEventListener('click', () => {
     th.classList.remove('active')
     fr.classList.remove('active')
     sa.classList.add('active')
-    loader.style.display="inline-block"
+    loader.style.display = "inline-block"
 
 })
 
 /*END buttons */
+
 
 const resetData = () => {
     groups = []
@@ -176,7 +177,7 @@ const displayData = (data) => {
     })
     //console.log(otherData);
     getDateOfLessons()
-    
+
     // тут треба цикл і запушити все в масив або в об'єкт
     //додаємо в масив з групами пусті рядки щоб рахунок не збивався
     groups.splice(7, 0, '')
@@ -186,19 +187,19 @@ const displayData = (data) => {
 
     switch (currDay) {
         case 'mo':
-            getDay(6,24,43,60,85,98,111,124,145,154,163,174)
+            getDay(6, 24, 43, 60, 85, 98, 111, 124, 145, 154, 163, 174)
             break;
         case 'tu':
-            getDay(6,24,43,60,93,106,119,132,153,162,171,182)
+            getDay(6, 24, 43, 60, 93, 106, 119, 132, 153, 162, 171, 182)
             break;
         case 'we':
-            getDay(6,24,43,60,90,105,118,131,152,161,170,181)
+            getDay(6, 24, 43, 60, 90, 105, 118, 131, 152, 161, 170, 181)
             break;
         case 'th':
-            getDay(6,24,43,60,87,100,113,126,147,156,165,175)
+            getDay(6, 24, 43, 60, 87, 100, 113, 126, 147, 156, 165, 175)
             break;
         case 'fr':
-            getDay(6,24,43,60,87,100,113,126,143,156,166,176)
+            getDay(6, 24, 43, 60, 87, 100, 113, 126, 143, 156, 166, 176)
             break;
         case 'sa':
             getSaturday()
@@ -224,7 +225,7 @@ const getAuditories = (elementID) => {
         classRoomArr.push(classRoomObj)
         //console.log(otherData[m]);
     }
-    
+
     console.log(classRoomArr);
     console.log(subAndGroupArr);
 }
@@ -255,10 +256,10 @@ const lessons = (a, b, i, count, lessonsCount) => {
     subAndGroupArr.push(subAndGroupObj)
 }
 
-const getDay = (a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12) => {
+const getDay = (a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12) => {
     //console.log(allItems);
     //console.log(otherData);
-    
+
     let counter = a1 // лічильник який починається з 6 індексу так як гупи починаються саме з нього
     let c;
     /*Перший цикл який відповідає за перші 4 елемента в таблиці */
@@ -308,13 +309,13 @@ const getDay = (a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12) => {
     counter = a8
     c = counter
     for (let i = 25; i < 28; i++) {
-        lessons(counter, c, i, 3,5)
+        lessons(counter, c, i, 3, 5)
     }
 
     counter = a9
     c = counter
     for (let i = 28; i < 30; i++) {
-        lessons(counter, c, i, 2,5)
+        lessons(counter, c, i, 2, 5)
     }
 
     counter = a10
@@ -335,9 +336,9 @@ const getDay = (a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12) => {
         lessons(counter, c, i, 2, 6)
     }
     //console.log(groupSelected.value);
-    
+
     getAuditories(354)
-    loader.style.display="none"
+    loader.style.display = "none"
     for (let i = 0; i <= subAndGroupArr.length; i++) {
         if (groupSelected.value.toLowerCase().split(' ').join('') === subAndGroupArr[i]?.group.toLowerCase().split(' ').join('')) {
             console.log(subAndGroupArr[i]?.group);
@@ -447,7 +448,7 @@ const getSaturday = () => {
         lessons(counter, c, i, 2, 5)
     }
 
-    loader.style.display="none"
+    loader.style.display = "none"
     for (let i = 0; i <= subAndGroupArr.length; i++) {
         console.log(`${subAndGroupArr[i]?.group} - ${i}`);
         //console.log(`${classRoomArr[i].group} - ${i}`);
@@ -477,6 +478,22 @@ const getSaturday = () => {
         //console.log(groupSelected.value.toLowerCase().split(' ').join('') === subAndGroupArr[i]?.group.toLowerCase().split(' ').join('') && groupSelected.value.toLowerCase().split(' ').join('') === classRoomArr[i]?.group.toLowerCase().split(' ').join(''));
     }
 }
+const saveSelectGroup = () => {
+    groupSelected.onchange = function () {
+        localStorage.setItem('group', groupSelected.value);
+    }
+    if (localStorage.getItem('group')) {
+        for (let i = 0; i <= groupSelected.length; i++) {
+            console.log();
+            if (groupSelected.options[i]?.innerText === localStorage.getItem('group')) {
+                groupSelected.options[i].selected = true;
+            }
+        }
+    }
+    console.log(localStorage.getItem('group'));
+}
+saveSelectGroup()
+
 
 /*
 Зробив вивід аудиторій, але список груп в масиві для кабінетів і пар не співпадає, тому треба якось придумати щоб воно одночасно шукало і там і там, і тільки піся цього виводило список пар і аудиторій.
