@@ -85,6 +85,8 @@ td{
 
 .version{
     color: white;
+    align-self: flex-end;
+    margin-right: 4px;
 }
 .dateOfLessons{
     margin-top: 10px;
@@ -129,3 +131,12 @@ td{
     }
   }
 /*LOADER END*/
+
+#group{
+    border-radius: 5px;
+}
+#group:active, :hover, :focus {
+    outline: 0;
+    outline-offset: 0;
+}
+
