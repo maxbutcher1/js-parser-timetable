@@ -26,6 +26,8 @@
                     <option value="111-О">111-О</option>
                     <option value="203-Ф">203-Ф</option>
                     <option value="112-Ф">112-Ф</option>
+                    <option value="209-О">209-О</option>
+                    <option value="210-Ф">210-Ф</option>
                     <option value="301-О">301-О</option>
                     <option value="302 (209)-О">302 (209)-О</option>
                     <option value="303-Ф">303-Ф</option>
@@ -55,8 +57,11 @@
                     <option value="406-К">406-К</option>
                     <option value="407-К">407-К</option>
                 </optgroup>
-            </select>
-
+            </select>   
+            <div class="betatest" title="Щоб зберети потрібно нажати на день">
+                <span class="beta_text">Показувати аудиторії(бета)</span>
+                <input id="classroom-check" type="checkbox">
+            </div>
 
 
 
@@ -118,9 +123,18 @@
         <div class="loader_container">
             <div class="lds-dual-ring"></div>
         </div>
-        <div class="timetable">
-
+        <div class="timetable_container">
+            <div class="date_continer">
+                <!--DATE-->
+            </div>
+            <div class="timetable_wrapper">
+                <ol class="timetable">
+                
+                </ol>
+                <div class="classroom"></div>
+            </div>
         </div>
+        
 
 
     </div>

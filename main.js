@@ -1,9 +1,12 @@
 'use strict'
 const timetable = document.querySelector('.timetable')
+const timetableDateContainer = document.querySelector('.date_continer')
+const classroomContainer = document.querySelector('.classroom')
 const inputGroup = document.querySelector('.input_group')
 const groupSelected = document.querySelector('#group')
 const dateOfLessons = document.querySelector('.dateOfLessons')
 const loader = document.querySelector('.lds-dual-ring')
+const isClassroomChecker = document.querySelector('#classroom-check')
 
 
 let groups = []
@@ -15,6 +18,7 @@ let subAndGroupObj = {
     group: '',
     lessonsList: []
 }
+
 
 let classRoomObj = { group: '', auditories: [] }
 let classRoomArr = []
@@ -118,8 +122,19 @@ sa.addEventListener('click', () => {
 })
 
 /*END buttons */
+const SaveChecked = () => {
+    localStorage.setItem('classroomcheck', isClassroomChecker.checked)
 
+}
+const LoadChecked = () => {
+    if (localStorage.getItem('classroomcheck')) {
+        let checked = JSON.parse(localStorage.getItem("classroomcheck"));
+        isClassroomChecker.checked = checked
 
+    }
+
+}
+LoadChecked()
 const resetData = () => {
     groups = []
     allItems = []
@@ -131,7 +146,9 @@ const resetData = () => {
     }
     classRoomObj = { group: '', auditories: [] }
     classRoomArr = []
+    timetableDateContainer.innerHTML = ''
     timetable.innerHTML = ''
+    classroomContainer.innerHTML = ''
     dateOfLessons.innerHTML = ''
 }
 
@@ -157,9 +174,9 @@ const displayData = (data) => {
         const text = tdItem.innerHTML
 
         //const r = /^[^0-9]*$/; //регулярка видаляє деякі пари де є цифри
-        const textRegExp = /(Зміни до розкладу|Чисельник|Знаменник|Навчальна частина|спорт.зал|гурт. м|Понеділок|Вівторок|Середа|Четвер|П'ятниця|Субота)/;
+        const textRegExp = /(Зміни до розкладу|Чисельник|Знаменник|Навчальна частина|спорт.зал|гурт. м|Понеділок|Вівторок|Середа|Четвер|П'ятниця|Субота|1|2|3|4|5|6|7|8|9)/;
 
-        if (isNaN(text[0]) && text[0] != 'н' && !textRegExp.test(text) || text === ' ') {//(text.match(r) && !textRegExp.test(text))
+        if (isNaN(text[1]) && text[0] != 'н' && !textRegExp.test(text) || text === ' ') {//(text.match(r) && !textRegExp.test(text))
             //console.log(text);
             allItems.push(text)
         }
@@ -181,19 +198,19 @@ const displayData = (data) => {
     // тут треба цикл і запушити все в масив або в об'єкт
     //додаємо в масив з групами пусті рядки щоб рахунок не збивався
     groups.splice(7, 0, '')
-    groups.splice(10, 0, '')
-    groups.splice(11, 0, '')
+   // groups.splice(10, 0, '')
+   // groups.splice(11, 0, '')
 
 
     switch (currDay) {
         case 'mo':
-            getDay(6, 24, 43, 60, 85, 98, 111, 124, 145, 154, 163, 174)
+            getDay(6, 24, 41, 58, 83, 96, 109, 122, 143, 152, 161, 172,354)
             break;
         case 'tu':
-            getDay(6, 24, 43, 60, 93, 106, 119, 132, 153, 162, 171, 182)
+            getDay(6, 24, 43, 60, 93, 106, 119, 132, 153, 162, 168, 178,362)
             break;
         case 'we':
-            getDay(6, 24, 43, 60, 90, 105, 118, 131, 152, 161, 170, 181)
+            getDay(6, 24, 43, 60, 90, 105, 118, 131, 152, 161, 170, 181,361)
             break;
         case 'th':
             getDay(6, 24, 43, 60, 87, 100, 113, 126, 147, 156, 165, 175)
@@ -215,7 +232,6 @@ const displayData = (data) => {
 
 const getAuditories = (elementID) => {
 
-    //console.log(otherData);
     for (let m = elementID; m < otherData.length; m += 7) {
         let arrClassroom = []
         for (let k = m + 1; k <= m + 6; k++) {
@@ -227,26 +243,28 @@ const getAuditories = (elementID) => {
     }
 
     console.log(classRoomArr);
-    console.log(subAndGroupArr);
+    //console.log(subAndGroupArr);
 }
 
 const getDateOfLessons = () => {
     dateOfLessons.innerHTML = `${otherData[1]}`
 
 }
+
 const lessons = (a, b, i, count, lessonsCount) => {
+   
     let arrLessons = []
     const groupsContainer = document.createElement('div')  // створюємо контейнер для груп
-    groupsContainer.classList.add('groups_item') // додаємо клас
-    groupsContainer.innerHTML = `${groups[i]}` //в середину контейнера вставляємо групу
-    //timetable.append(groupsContainer) //вставляємо в html
-    //  console.log(groups[i]);
+    // groupsContainer.classList.add('groups_item') // додаємо клас
+    // groupsContainer.innerHTML = `${groups[i]}` //в середину контейнера вставляємо групу
+    // timetable.append(groupsContainer) //вставляємо в html
+    //console.log(groups[i]);
     b = a
     b = a + i
     for (let j = 1; j <= lessonsCount; j++) {
         const lessonsContainer = document.createElement('div')
         lessonsContainer.innerHTML = `${allItems[b]} ${b}`
-        //timetable.append(lessonsContainer)
+        // timetable.append(lessonsContainer)
         arrLessons.push(allItems[b])
         b += count
     }
@@ -254,12 +272,14 @@ const lessons = (a, b, i, count, lessonsCount) => {
 
     subAndGroupObj = { group: groups[i], lessonsList: arrLessons } // в об'єкт додаємо данні
     subAndGroupArr.push(subAndGroupObj)
+    
 }
 
-const getDay = (a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12) => {
-    //console.log(allItems);
-    //console.log(otherData);
-
+const getDay = (a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12,auditID) => {
+    //console.log(allItems)
+    console.log(otherData)
+    console.log();
+    SaveChecked()
     let counter = a1 // лічильник який починається з 6 індексу так як гупи починаються саме з нього
     let c;
     /*Перший цикл який відповідає за перші 4 елемента в таблиці */
@@ -336,8 +356,8 @@ const getDay = (a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12) => {
         lessons(counter, c, i, 2, 6)
     }
     //console.log(groupSelected.value);
-
-    getAuditories(354)
+    //console.log(subAndGroupArr)
+    getAuditories(auditID)
     loader.style.display = "none"
     for (let i = 0; i <= subAndGroupArr.length; i++) {
         if (groupSelected.value.toLowerCase().split(' ').join('') === subAndGroupArr[i]?.group.toLowerCase().split(' ').join('')) {
@@ -349,10 +369,10 @@ const getDay = (a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12) => {
             if (subAndGroupArr[i].group) {
 
                 groupCon.innerHTML = `${subAndGroupArr[i]?.group}`
-                timetable.append(groupCon)
+                timetableDateContainer.append(groupCon)
 
                 for (let j = 0; j < subAndGroupArr[i].lessonsList.length; j++) {
-                    const lessonCon = document.createElement('div')
+                    const lessonCon = document.createElement('li')
 
                     // console.log(subAndGroupArr[i].lessonsList[j]);
 
@@ -364,6 +384,26 @@ const getDay = (a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12) => {
 
         }
 
+    }
+    if (isClassroomChecker.checked) {
+        console.log(classRoomArr);
+        for (let i = 0; i <= classRoomArr.length; i++) {
+            if (groupSelected.value.toLowerCase().split(' ').join('') === classRoomArr[i]?.group.toLowerCase().split(' ').join('')) {
+                // console.log(classRoomArr[i].auditories);
+                for (let k = 0; k < classRoomArr[i].auditories.length; k++) {
+                    console.log(`${k}==${classRoomArr[i]?.auditories[k]}`);
+                    const classroomCon = document.createElement('div')
+                    if (classRoomArr[i]?.auditories[k] === '') {
+                        classroomCon.innerHTML = '-' 
+                    }else{
+                        classroomCon.innerHTML = ` | аудит. ${classRoomArr[i]?.auditories[k]}`
+                    }
+                    
+                    classroomContainer.append(classroomCon)
+
+                }
+            }
+        }
     }
 }
 
@@ -475,7 +515,6 @@ const getSaturday = () => {
 
 
         }
-        //console.log(groupSelected.value.toLowerCase().split(' ').join('') === subAndGroupArr[i]?.group.toLowerCase().split(' ').join('') && groupSelected.value.toLowerCase().split(' ').join('') === classRoomArr[i]?.group.toLowerCase().split(' ').join(''));
     }
 }
 const saveSelectGroup = () => {
@@ -490,7 +529,9 @@ const saveSelectGroup = () => {
             }
         }
     }
-    console.log(localStorage.getItem('group'));
+    //console.log(localStorage.getItem('group'));
+
+
 }
 saveSelectGroup()
 

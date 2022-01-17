@@ -1,5 +1,6 @@
 body{
-    width: 470px;
+    min-width: 470px;
+    max-width: 590px;
     min-height: 330px;
     padding: 5px;
 }
@@ -15,12 +16,22 @@ body{
     flex-direction: column;
     text-align: center;
     font-weight: bold;
-    font-size: 22px;
-
+    font-size: 16px;
+    text-align: left;
     padding-top: 10px;
     color: #fff;
+    margin: 0;
+    padding-left: 20px;
+   
 }
-
+.classroom{
+    margin-left: 5px;
+    padding-top: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    
+}
 
 
 tr{
@@ -30,13 +41,17 @@ tr{
 
 td{
     width: 250px;
-    text-align: center;
+    text-align: center; 
 }
 
 .groups_item{
-    /*margin-top: 25px;
-    border-top: 2px solid black;*/
+    margin-top: 9px;
+   /* border-top: 2px solid black;*/
     color: #fdb622;
+    text-align: center;
+    text-align: center;
+    font-weight: bold;
+    font-size: 22px;
 }
 
 .btn_list, .input_field{
@@ -138,5 +153,18 @@ td{
 #group:active, :hover, :focus {
     outline: 0;
     outline-offset: 0;
+}
+
+.timetable_container{
+    padding-bottom: 10px;
+    width: 560px;
+}
+.timetable_wrapper{
+    display: flex;
+    justify-content: center;
+}
+
+.beta_text{
+    color: #fff;
 }
 
