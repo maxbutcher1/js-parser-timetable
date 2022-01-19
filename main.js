@@ -194,7 +194,6 @@ const displayData = (data) => {
     })
     //console.log(otherData);
     getDateOfLessons()
-
     // тут треба цикл і запушити все в масив або в об'єкт
     //додаємо в масив з групами пусті рядки щоб рахунок не збивався
     groups.splice(7, 0, '')
@@ -210,10 +209,10 @@ const displayData = (data) => {
             getDay(6, 24, 43, 60, 93, 106, 119, 132, 153, 162, 168, 178,362)
             break;
         case 'we':
-            getDay(6, 24, 43, 60, 90, 105, 118, 131, 152, 161, 170, 181,361)
+            getDay(6, 24, 43, 60, 90, 105, 115, 129, 150, 159, 168, 179,361)
             break;
         case 'th':
-            getDay(6, 24, 43, 60, 87, 100, 113, 126, 147, 156, 165, 175)
+            getDay(6, 24, 43, 58, 85, 98, 111, 124, 144, 153, 164, 175,)
             break;
         case 'fr':
             getDay(6, 24, 43, 60, 87, 100, 113, 126, 143, 156, 166, 176)
@@ -277,8 +276,9 @@ const lessons = (a, b, i, count, lessonsCount) => {
 
 const getDay = (a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12,auditID) => {
     //console.log(allItems)
-    console.log(otherData)
-    console.log();
+    //console.log(otherData)
+    //console.log(subAndGroupArr);
+    console.log(subAndGroupArr);
     SaveChecked()
     let counter = a1 // лічильник який починається з 6 індексу так як гупи починаються саме з нього
     let c;
