@@ -212,10 +212,10 @@ const displayData = (data) => {
             getDay(6, 24, 43, 60, 90, 105, 115, 129, 150, 159, 168, 179,361)
             break;
         case 'th':
-            getDay(6, 24, 43, 58, 85, 98, 111, 124, 144, 153, 164, 175,)
+            getDay(6, 24, 43, 58, 85, 98, 111, 124, 144, 153, 164, 175,359)
             break;
         case 'fr':
-            getDay(6, 24, 43, 60, 87, 100, 113, 126, 143, 156, 166, 176)
+            getDay(6, 24, 43, 60, 87, 100, 113, 126, 143, 156, 166, 176,394)
             break;
         case 'sa':
             getSaturday()
@@ -276,7 +276,7 @@ const lessons = (a, b, i, count, lessonsCount) => {
 
 const getDay = (a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12,auditID) => {
     //console.log(allItems)
-    //console.log(otherData)
+    console.log(otherData)
     //console.log(subAndGroupArr);
     console.log(subAndGroupArr);
     SaveChecked()
@@ -386,12 +386,12 @@ const getDay = (a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12,auditID) => {
 
     }
     if (isClassroomChecker.checked) {
-        console.log(classRoomArr);
+        //console.log(classRoomArr);
         for (let i = 0; i <= classRoomArr.length; i++) {
             if (groupSelected.value.toLowerCase().split(' ').join('') === classRoomArr[i]?.group.toLowerCase().split(' ').join('')) {
                 // console.log(classRoomArr[i].auditories);
                 for (let k = 0; k < classRoomArr[i].auditories.length; k++) {
-                    console.log(`${k}==${classRoomArr[i]?.auditories[k]}`);
+                    //console.log(`${k}==${classRoomArr[i]?.auditories[k]}`);
                     const classroomCon = document.createElement('div')
                     if (classRoomArr[i]?.auditories[k] === '') {
                         classroomCon.innerHTML = '-' 
