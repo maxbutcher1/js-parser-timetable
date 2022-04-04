@@ -167,4 +167,12 @@ td{
 .beta_text{
     color: #fff;
 }
+.newUpdate{
+    display: none;
+    color: #fdb622;
+    text-decoration: none;
+    border:solid 1px #fdb622;
+    padding: 2px;
+}
+
 

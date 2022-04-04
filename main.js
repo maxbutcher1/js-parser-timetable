@@ -7,6 +7,7 @@ const groupSelected = document.querySelector('#group')
 const dateOfLessons = document.querySelector('.dateOfLessons')
 const loader = document.querySelector('.lds-dual-ring')
 const isClassroomChecker = document.querySelector('#classroom-check')
+const newUpdateContainer = document.querySelector('.newUpdate')
 
 
 let groups = []
@@ -160,7 +161,26 @@ const fetchData = (nameOfDay) => {
         })
         .then((data) => {
             displayData(data)
+
         })
+}
+const fetchNewUpdate = () => {
+
+    fetch("https://timetable-data-551c5-default-rtdb.europe-west1.firebasedatabase.app/db.json")
+        .then((response) => {
+            return response.json()
+        })
+        .then((data) => {
+            displayNewUpdate(data)
+        })
+}
+fetchNewUpdate()
+const displayNewUpdate = (data) => {
+    if (data.attentionMessage != '') {
+        console.log(data.attentionMessage);
+        newUpdateContainer.innerText = `${data.attentionMessage}`
+        newUpdateContainer.style.display = "block"
+    }
 }
 
 let otherData = []
@@ -170,9 +190,9 @@ const displayData = (data) => {
     const doc = parser.parseFromString(str, 'text/html')
     const td = doc.querySelectorAll('#sheets-viewport div div table tbody tr td')
 
-    td.forEach((tdItem) => {
+    td.forEach((tdItem, index) => {
         const text = tdItem.innerHTML
-
+        //console.log(`${text} -- ${index}`);
         //const r = /^[^0-9]*$/; //регулярка видаляє деякі пари де є цифри
         const textRegExp = /(Зміни до розкладу|Чисельник|Знаменник|Навчальна частина|спорт.зал|гурт. м|Понеділок|Вівторок|Середа|Четвер|П'ятниця|Субота|1|2|3|4|5|6|7|8|9)/;
 
@@ -181,7 +201,7 @@ const displayData = (data) => {
             allItems.push(text)
         }
         if (!isNaN(text[0]) && !isNaN(text[1]) && !isNaN(text[2])) {
-            console.log();
+
 
             groups.push(text)
 
@@ -197,25 +217,25 @@ const displayData = (data) => {
     // тут треба цикл і запушити все в масив або в об'єкт
     //додаємо в масив з групами пусті рядки щоб рахунок не збивався
     groups.splice(7, 0, '')
-   // groups.splice(10, 0, '')
-   // groups.splice(11, 0, '')
+    // groups.splice(10, 0, '')
+    // groups.splice(11, 0, '')
 
 
     switch (currDay) {
         case 'mo':
-            getDay(6, 24, 41, 58, 83, 96, 109, 122, 143, 152, 161, 172,354)
+            getDay(6, 24, 41, 58, 83, 96, 109, 122, 143, 152, 161, 171, 354)
             break;
         case 'tu':
-            getDay(6, 24, 43, 60, 93, 106, 119, 132, 153, 162, 168, 178,362)
+            getDay(6, 24, 43, 60, 93, 106, 119, 132, 153, 162, 168, 177, 362)
             break;
         case 'we':
-            getDay(6, 24, 43, 60, 90, 105, 115, 129, 150, 159, 168, 179,361)
+            getDay(6, 24, 43, 60, 90, 105, 115, 129, 150, 159, 168, 179, 361)
             break;
         case 'th':
-            getDay(6, 24, 43, 58, 85, 98, 111, 124, 144, 153, 164, 175,359)
+            getDay(6, 24, 43, 58, 85, 98, 111, 124, 144, 153, 164, 175, 359)
             break;
         case 'fr':
-            getDay(6, 24, 43, 60, 87, 100, 113, 126, 143, 156, 166, 176,394)
+            getDay(6, 24, 43, 60, 87, 100, 113, 126, 143, 156, 166, 176, 394)
             break;
         case 'sa':
             getSaturday()
@@ -251,19 +271,23 @@ const getDateOfLessons = () => {
 }
 
 const lessons = (a, b, i, count, lessonsCount) => {
-   
+
     let arrLessons = []
     const groupsContainer = document.createElement('div')  // створюємо контейнер для груп
+    /* For debug */
     // groupsContainer.classList.add('groups_item') // додаємо клас
     // groupsContainer.innerHTML = `${groups[i]}` //в середину контейнера вставляємо групу
     // timetable.append(groupsContainer) //вставляємо в html
+    /* For debug */
     //console.log(groups[i]);
     b = a
     b = a + i
     for (let j = 1; j <= lessonsCount; j++) {
         const lessonsContainer = document.createElement('div')
-        lessonsContainer.innerHTML = `${allItems[b]} ${b}`
+        /* For debug */
+        // lessonsContainer.innerHTML = `${allItems[b]} ${b}`
         // timetable.append(lessonsContainer)
+        /* For debug */
         arrLessons.push(allItems[b])
         b += count
     }
@@ -271,12 +295,12 @@ const lessons = (a, b, i, count, lessonsCount) => {
 
     subAndGroupObj = { group: groups[i], lessonsList: arrLessons } // в об'єкт додаємо данні
     subAndGroupArr.push(subAndGroupObj)
-    
+
 }
 
-const getDay = (a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12,auditID) => {
-    //console.log(allItems)
-    console.log(otherData)
+const getDay = (a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, auditID) => {
+    console.log(allItems)
+    //console.log(otherData)
     //console.log(subAndGroupArr);
     console.log(subAndGroupArr);
     SaveChecked()
@@ -394,11 +418,11 @@ const getDay = (a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12,auditID) => {
                     //console.log(`${k}==${classRoomArr[i]?.auditories[k]}`);
                     const classroomCon = document.createElement('div')
                     if (classRoomArr[i]?.auditories[k] === '') {
-                        classroomCon.innerHTML = '-' 
-                    }else{
+                        classroomCon.innerHTML = '-'
+                    } else {
                         classroomCon.innerHTML = ` | аудит. ${classRoomArr[i]?.auditories[k]}`
                     }
-                    
+
                     classroomContainer.append(classroomCon)
 
                 }
@@ -490,7 +514,7 @@ const getSaturday = () => {
 
     loader.style.display = "none"
     for (let i = 0; i <= subAndGroupArr.length; i++) {
-        console.log(`${subAndGroupArr[i]?.group} - ${i}`);
+        //console.log(`${subAndGroupArr[i]?.group} - ${i}`);
         //console.log(`${classRoomArr[i].group} - ${i}`);
         if (groupSelected.value.toLowerCase().split(' ').join('') === subAndGroupArr[i]?.group.toLowerCase().split(' ').join('')) { //&& groupSelected.value.toLowerCase().split(' ').join('') === classRoomArr[i]?.group.toLowerCase().split(' ').join('')
             //console.log(subAndGroupArr[i]?.group);
